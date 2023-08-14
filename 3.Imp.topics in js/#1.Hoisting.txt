@@ -1,0 +1,103 @@
+Hoisting in JavaScript refers to the behavior where variable and function declarations are moved to the top of their containing scope during the compilation phase, regardless of where they are actually written in the code. This means that you can use variables and functions before they are declared in your code.
+It is a concept that describes how variable and function declarations are processed during the compilation phase before the code is executed. Hoisting allows you to access variables and functions before they are actually declared in the code.
+When JavaScript code is executed, it goes through two main phases: compilation and execution.
+1) Compilation Phase:
+During the compilation phase, the JavaScript engine scans through the code to identify variable and function declarations. It allocates memory for these declarations in the appropriate scope. This is where hoisting comes into play.
+Hoisting involves moving variable and function declarations to the top of their containing scope. This means that even if you reference a variable or function before its actual declaration in the code, it will still work due to hoisting. However, the initial value assigned to the variable i.e assignments (if any) is not hoisted, and it will remain undefined until the assignment is encountered during the execution phase.
+
+2) Execution Phase:
+During the execution phase, the JavaScript engine goes through the code again, executing statements in order. This is where the actual assignments and function invocations take place.
+However, it's important to note that only the declarations are hoisted, not the initializations or assignments. Let's break it down:
+-------------------------------------------------------------------------------------------
+1) Var Hoisting: When you declare a variable using var, its declaration is hoisted to the top of its scope. For example:
+console.log(x); // undefined
+var x = 5;
+
+
+In the above code, the declaration var x; is hoisted to the top, but the assignment x = 5; is not. This is why console.log(x) doesn't throw an error but prints undefined. only variable are hoisted to the top of their containing scope during compilation. Assignments, which include initializing variables with values, are not hoisted, thats why insted of printing 5 js engine prints undefined which is a place holder.
+----------------------------------------------------------------------------------------
+2) Function Hoisting: Similarly, function declarations are hoisted as well. You can call a function before its actual declaration in the code:
+foo(); // "Hello, hoisting!"
+
+function foo() {
+    console.log("Hello, hoisting!");
+}
+In this case, the entire function declaration is hoisted to the top, so you can call foo() before the function's definition.
+---------------------------------
+In JavaScript, arrow functions have a unique behavior compared to regular function declarations when it comes to hoisting. Arrow functions are not hoisted in the same way as traditional function declarations. They behave more like variables declared with let or const. Means we cannot access arrow functions before its declaration.
+
+foo(); // TypeError: foo is not a function
+
+var foo = () => function foo() {
+    console.log("Hello, hoisting!");
+}
+
+In this code, you'll encounter an error. This is because the arrow function var foo = () => ... is not hoisted as a whole to the top. The variable foo is hoisted, but its value (which is an arrow function) is not assigned until the line where it's defined. Therefore, when you try to call foo() before its value is assigned, you get a TypeError.
+
+To fix this, you should first define the arrow function and then call it:
+
+var foo = () => {
+    function foo() {
+        console.log("Hello, hoisting!");
+    }
+    foo();
+};
+
+foo(); // "Hello, hoisting!"
+
+Now, the arrow function foo is correctly defined, and when you call foo(), it will execute the inner function foo and print "Hello, hoisting!".
+----------------------------------------
+Function Declarations and Function Expressions are two ways to define functions in JavaScript, and they differ in how they are hoisted and how they behave in terms of scope and access.
+
+1) Function Declarations: Function declarations are defined using the function keyword, followed by the function name and its implementation. They have the following characteristics:
+
+a) Hoisting: Function declarations are fully hoisted to the top of their containing scope. This means you can call a function declared using a function declaration before the actual declaration in the code.
+
+b) Usage before Declaration: You can call a function declared using a function declaration before its definition, as long as the call is made within the same scope.
+
+Example of a function declaration:
+
+sayHello();
+
+function sayHello() {
+    console.log("Hello!");
+}
+-------------------------------------------
+2) Function Expressions: Function expressions involve assigning a function to a variable or a property. They have the following characteristics:
+
+a) Hoisting: Unlike function declarations, "function expressions are hoisted as variables, not as functions." This means only the variable declaration is hoisted, not the function implementation.
+
+b) Usage before Declaration: You cannot call a function expression before its actual assignment. Attempting to do so will result in a runtime error.
+
+Example of a function expression:
+
+sayHello(); // Error: sayHello is not a function
+
+var sayHello = function() {
+    console.log("Hello!");
+};
+
+Key differences summarized:
+a) Hoisting: Function declarations are hoisted as a whole, allowing you to call the function before its definition. Function expressions are hoisted as variables, but the function implementation is not hoisted.
+
+b) Usage Before Declaration: Function declarations can be called before their definition within the same scope. Function expressions cannot be called before their assignment, or you'll encounter an error.
+----------------------------------------------------------------------------
+3) Let and Const Declarations: Variables declared with let and const are also hoisted, but they are not initialized with a value. This is known as the "temporal dead zone." You cannot access these variables before their actual declaration:
+
+console.log(y); // ReferenceError: Cannot access 'y' before initialization
+let y = 10;
+
+while the declarations of let and const variables are hoisted, they are not fully hoisted in the sense that you cannot use them before their declarations. This behavior is different from the hoisting of var variables and is often a point of confusion in JavaScript.
+let and const variables, as well as arrow functions, exhibit similar behavior in terms of hoisting. They are hoisted to the top of their containing scope, but you cannot access or use them before their actual declaration in the code. This behavior is often referred to as the "temporal dead zone."
+-----------------------------------------------------------------------------------------------
+Hoisting in JavaScript provides several advantages and plays an important role in how the language functions:
+
+1) Flexible Code Structure: Hoisting allows you to declare variables and functions anywhere in a scope, making it easier to structure your code logically and improve its readability.
+2) Early Access to Functions: Function declarations are fully hoisted, enabling you to call functions before their actual definitions in the code. This can be useful for creating self-contained code blocks or for organizing your code in a way that makes sense conceptually.
+3) Varied Variable Scopes: Hoisting contributes to the understanding of variable scope. Variables declared using var are hoisted to the top of their containing function or global scope, ensuring consistent behavior regardless of where they're declared within the scope.
+4) Avoiding Errors: Hoisting helps avoid errors related to using variables and functions before their declarations. Instead of encountering runtime errors, the JavaScript engine allows you to call functions before they are defined and uses variable declarations without assignments (initialized with undefined) without throwing errors.
+5) Predictable Behavior: Hoisting ensures that JavaScript code behaves consistently across different scopes, helping developers anticipate how variables and functions are treated during code execution.
+6) Optimization and Performance: By hoisting declarations, the JavaScript engine can better optimize memory usage and code execution. It gains a clearer understanding of variable and function declarations and can allocate memory efficiently.
+7) Support for Lexical Scoping: Hoisting aligns with JavaScript's lexical scoping rules, where scope is determined by the physical structure of the code. This consistency makes the language more predictable and easier to reason about.
+8) Code Maintenance and Organization: Developers can declare variables and functions closer to where they are needed, improving code organization and maintenance.
+----------------------------------------------------------------------------------

@@ -1,0 +1,95 @@
+1) Local Scope of Functions:
+
+Local scope refers to the area within a function where variables are declared using var, let, or const.
+Variables defined within a function's local scope are accessible only within that function and are not visible outside of it.
+When a function is called, a new local scope is created for that invocation, and any variables declared within the function are scoped to that invocation.
+Local variables are useful for encapsulating data and logic within a specific function, helping to prevent unintended interactions with variables in other parts of the code.
+Once the function finishes executing, its local scope is destroyed, and local variables are no longer accessible.
+Local scope supports the principle of information hiding and promotes modular programming.
+--------------------------------------------------------------------------------
+2) Global Scope of Functions:
+
+Global scope refers to the area outside of all functions, where variables are declared at the top level of a script or module.
+Variables declared in the global scope are accessible from anywhere in the code, including within functions.
+Global variables have a lifetime that extends throughout the entire program or script.
+While global variables provide accessibility, excessive use of global scope can lead to naming conflicts, unintended modifications, and maintenance challenges.
+Functions declared in the global scope are available for use throughout the codebase, promoting code reusability and organization.
+JavaScript typically has a single global scope for the entire runtime environment (e.g., browser or Node.js), but modules and other mechanisms can introduce additional scopes.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+1. Lexical Environment:
+A lexical environment is an internal JavaScript data structure that holds variables, functions, and references to outer (enclosing) lexical environments. It consists of two main components:
+a) Environment Record: This component stores all the variables and functions defined in the current scope, along with their values. It acts like a "dictionary" of identifiers and their corresponding values.
+b) Outer Environment Reference: This component refers to the lexical environment in which the current code is nested. It enables the concept of scope nesting, where inner scopes can access variables and functions from their containing outer scopes, and here comes the beautiful concept of CLOSURES.
+Lexical environments play a crucial role in determining how variable names are resolved during runtime.
+-------------------------
+2. Lexical Scoping:
+Lexical scoping (also known as static scoping) refers to the way variable names are resolved at compile time based on the structure of the code. It is determined by the location of variable declarations in the source code, regardless of where the code is executed at runtime.
+In a lexically scoped language like JavaScript, when you reference a variable, the JavaScript engine looks up the variable's value by examining the nested scopes in the lexical environment hierarchy, starting from the current scope and moving outward to the outer enclosing scopes until the variable is found.
+-------------------------
+3. Scope Chain:
+The scope chain is a chain of lexical environments linked together based on their hierarchical nesting in the source code. It represents the order in which the JavaScript engine searches for variables when resolving their values.
+When you reference a variable in a certain scope, the JavaScript engine follows the scope chain to find the variable. If the variable is not found in the current scope's environment record, it continues to the outer environment reference and repeats the process until the variable is located or until the global scope is reached.
+The combination of lexical environments, lexical scoping, and the scope chain allows JavaScript to determine where to look for variables when your code is executed. This behavior ensures that variables are accessed in a predictable and controlled manner based on the code's structure and nesting.
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+A block or compound statement in JavaScript is used to group multiple statements together into a single unit. This is often done to create a logical grouping of statements that should be treated as a single entity, such as within control structures (if statements, loops) or function bodies.
+Here are the main reasons for using block statements:
+1) Logical Grouping: Block statements allow you to logically group multiple statements together, making the code more organized and easier to understand.
+2) Control Structures: Many control structures in JavaScript (e.g., if statements, loops) require a single statement as their body. By using a block statement, you can effectively provide multiple statements as the body of such control structures.
+3) Function Bodies: Functions in JavaScript can have a block statement as their body, which allows you to include multiple statements that define the function's behavior.
+4) Scoping: Block statements also create a new block scope, which can be useful for variable scoping and avoiding naming conflicts.
+
+if (condition) {
+    // This is a block statement
+    statement1;
+    statement2;
+}
+---------------------------------------------------------------------------------------
+Variable shadowing occurs in JavaScript when a variable declared in an inner scope has the same name as a variable declared in an outer scope. This can lead to confusion and unexpected behavior, as the inner variable "shadows" or overrides access to the outer variable within the same scope. When a variable is declared within a particular scope, it is accessible within that scope as well as any inner scopes. However, if an inner scope declares a variable with the same name as one in an outer scope, the inner variable takes precedence.
+Shadowing occurs when an inner scope declares a variable with the same name as a variable in an outer scope. This new variable effectively "shadows" the outer variable within the inner scope, making it temporarily inaccessible within that scope. The inner variable is said to "shadow" the outer variable.
+In case of let and const variable shadowing happens in the block scope only, but in case of var variable shadowing happens in global scope also, means in the global scope also the inner block declared variable will take precedence.
+
+1) var shadowing:- 
+
+function example() {
+    var x = 10;
+
+    if (true) {
+        var x = 20; // This shadows the outer 'x' variable
+        console.log(x); // 20
+    }
+
+    console.log(x); // 20, the inner 'x' variable affects the outer scope
+}
+
+example();
+-----------------------------------------------------
+2) let and const shadowing:- 
+
+function example() {
+    let x = 10;
+
+    if (true) {
+        let x = 20; // This shadows the outer 'x' variable
+        console.log(x); // 20
+    }
+
+    console.log(x); // 10, the inner 'x' variable doesn't affect the outer scope
+}
+
+example();
+------------------------------------
+function example() {
+    const x = 10;
+
+    if (true) {
+        const x = 20; // This shadows the outer 'x' variable
+        console.log(x); // 20
+    }
+
+    console.log(x); // 10, the inner 'x' variable doesn't affect the outer scope
+}
+
+example();
+--------------------------------------------------------------------------------------

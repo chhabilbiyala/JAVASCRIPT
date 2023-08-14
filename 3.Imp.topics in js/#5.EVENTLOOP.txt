@@ -1,0 +1,56 @@
+Browsers are one of the most remarkable creation by the developers. Browser contains js engine and js engine contains the call stack which executes all our code. And if our code want to access the  super powers of the browser like database, https:// request, bluetooth, gps, timers, connection with the external servers etc there is a need of web APIs like setTImeout, DOM APIs, fetch() (for connection with external servers) , localstorage, console, location etc and browser give all these facility to js engine to access all this powers with the help of global object window, which contains all  these web APIs.
+Browsers are one of the most remarkable creation by the developers. Browser contains js engine and js engine contains the call stack which executes all our code. And if our code want to access the  super powers of the browser like database, https:// request, bluetooth, gps, timers, connection with the external servers etc there is a need of web APIs like setTImeout, DOM APIs, fetch() (for connection with external servers) , localstorage, console, location etc and browser give all these facility to js engine to access all this powers with the help of global object window, which contains all  these web APIs.
+---------------------------------------------------------------------------------------------
+1. Asynchronous Operations and the Need for Callbacks:
+Asynchronous operations are tasks that take some time to complete and do not block the execution of other code. In JavaScript, common examples of asynchronous operations include fetching data from a server, reading files, or setting timers. Since JavaScript is single-threaded and executes code in a sequential manner, it needs a mechanism to handle these tasks without freezing the entire program.
+Callbacks are functions that are passed as arguments to other functions, and they are used to define what should happen when an asynchronous operation is completed. Instead of waiting for the operation to finish, the program continues executing other tasks. When the asynchronous operation completes, the callback function is added to the callback queue.
+
+2. Callback Queue Explained:
+The callback queue is a data structure that holds a queue of callback functions waiting to be executed. Each item in the queue represents a callback function associated with the completion of an asynchronous task. The callback queue operates in a first-in, first-out (FIFO) manner, meaning that the callbacks are processed in the order they were added.
+
+Here's a step-by-step breakdown of how the callback queue works:
+
+a) An asynchronous operation is initiated, such as a timer set using setTimeout or a network request using fetch.
+b) While waiting for the operation to complete, the JavaScript engine continues executing other code.
+c) When the asynchronous operation completes (e.g., the timer expires or the network request receives a response), the associated   callback function is added to the callback queue.
+d) The event loop, which is a continuous process that monitors the call stack and the callback queue, checks if the call stack is empty.
+e) If the call stack is empty (meaning the JavaScript engine is not currently executing any code), the event loop picks the first callback function from the callback queue and adds it to the call stack for execution.
+7) The callback function is executed, and any code inside it is processed.
+8) Once the callback function has finished executing, it is removed from the call stack.
+9) The event loop repeats the process, checking the call stack and the callback queue, and executing callback functions as needed.
+
+3. Example Scenario:
+
+console.log("Start");
+
+setTimeout(function () {
+  console.log("Callback 1");
+}, 2000);
+
+setTimeout(function () {
+  console.log("Callback 2");
+}, 1000);
+
+console.log("End");
+
+-> "Start" is logged to the console.
+-> Two setTimeout calls are made with different delay times.
+-> "End" is logged to the console.
+-> After the specified delays, the callback functions are added to the callback queue: "Callback 2" and "Callback 1" (in that order).
+-> The event loop checks if the call stack is empty and finds that it is.
+-> "Callback 2" is added to the call stack and logged to the console.
+-> After "Callback 2" finishes, it is removed from the call stack.
+-> "Callback 1" is added to the call stack and logged to the console.
+-> After "Callback 1" finishes, it is removed from the call stack.
+-------------------------------------------------------------------------------
+Microtask Queue:
+The microtask queue (also known as the "job queue" or "microtask queue") is a separate queue from the regular callback (task) queue in JavaScript's event loop. It holds microtasks, which are tasks that are executed after the current task has completed but before rendering updates. Microtasks are typically related to Promises and other asynchronous APIs that need to be resolved immediately after the current execution context.
+
+Priority of Microtask Queue:
+The microtask queue has a higher priority than the regular callback (task) queue. When the event loop checks for tasks to execute, it first processes all the microtasks in the microtask queue before moving on to tasks in the callback queue. This priority ensures that microtasks are handled promptly, making them suitable for tasks that need to be resolved before rendering or other higher-priority tasks.
+
+Promises and Microtasks:
+Promises play a significant role in the microtask queue. When a promise is resolved or rejected, the associated .then() and .catch() callbacks are placed in the microtask queue. This allows promise-related callbacks to execute before the rendering and other tasks in the regular callback queue.
+
+Mutation Observers and Microtasks:
+Mutation Observers are a part of the Web API that allows you to observe changes to the DOM (Document Object Model). When mutations to the DOM occur, the registered mutation observer callback is added to the microtask queue. This ensures that DOM-related changes and updates are handled before the rendering or other tasks.

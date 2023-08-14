@@ -1,0 +1,55 @@
+1. var Variable:
+
+Function-scoped or globally-scoped.
+Hoisted to the top of their scope during compilation.
+Allows re-declarations within the same scope.
+Can be accessed before they are declared, resulting in potential unexpected behavior.
+Not recommended for modern JavaScript development due to its less predictable behavior.
+------------------------------------------------------------------------------------
+2. let Variable:
+
+Block-scoped: Limited to the block (curly braces) in which they are defined.
+Not hoisted to the top of their scope, reducing hoisting-related issues. If we try to access let variable beofre its declaration, it will throw a reference error.
+Does not allow re-declarations within the same scope, but we can declare a let variable once, and initialize it later also. 
+Variables are subject to the "temporal dead zone," preventing access before declaration.
+Preferred choice for variables that can be reassigned and require block scoping.
+------------------------------------------------------------------------------------
+3. const Variable:
+
+Block-scoped: Limited to the block (curly braces) in which they are defined.
+Not hoisted to the top of their scope.
+Requires an initial value at the time of declaration (otherwise it will throw an error:- Missing initializer in const declaration), and cannot be reassigned (If we reassigned a value for a const variable it will throw a type error). That means const variable must to declare and initialize together and once only.
+Variables are subject to the "temporal dead zone."
+Preferred choice for variables that should not be reassigned, promoting immutability and clarity.
+------------------------------------------------------------------------------------
+The Temporal Dead Zone (TDZ) is a phase in JavaScript where let and const variables are hoisted to the top of their containing block or function scope but are not yet accessible or initialized. Any attempt to access these variables during this phase will result in a ReferenceError.
+In simpler terms, the TDZ is like a "zone" in your code where let and const variables exist but are in a state of limbo – they've been hoisted, but they can't be used until they're properly declared and initialized later in the code.
+Here's a summary of the Temporal Dead Zone:
+
+a) When a let or const variable is encountered in your code, it is moved to the top of its scope during the compilation phase.
+b) However, until the point where the variable is formally declared (using the let or const keyword), any attempt to access it will result in a ReferenceError.
+c) This "zone" where you can't access the variable is called the Temporal Dead Zone.
+Once the variable is declared and initialized, it exits the TDZ and becomes accessible for use.
+
+let and const variables are hoisted, it's important to clarify that they are indeed hoisted, but they are hoisted in a Temporal Dead Zone (TDZ) that prevents them from being accessed before their declaration.
+So to avoid the TDZ phenomena always write your declaration and initialization at the top.
+------------------------------------------------------------------------------------
+Using let and const instead of var in modern JavaScript programming has become a best practice for several reasons:
+
+1) Block Scoping:
+Variables declared with let and const are block-scoped, meaning they are limited to the block (curly braces) in which they are defined, such as loops and conditional statements. This leads to more predictable and localized variable behavior, reducing the risk of unintended scope pollution and bugs.
+2) Prevents Hoisting Issues:
+var variables are hoisted to the top of their function or global scope, which can lead to unintentional variable usage and re-declarations. let and const are not hoisted in the same way, helping to prevent hoisting-related bugs.
+3) No Re-declarations:
+Unlike var, let and const do not allow re-declarations of the same variable within the same scope, which promotes cleaner and less error-prone code.
+4) Clearer Intent:
+Using const for variables that should not be reassigned and let for variables that can be reassigned helps communicate the intent of your code to other developers. This enhances code readability and maintainability.
+5) Immutable Data:
+const enforces immutability for primitive values, indicating that the value should not be changed after its initial assignment. This can prevent unintended mutations and side effects.
+6) Temporal Dead Zone:
+let and const variables are subject to the "temporal dead zone," which means they cannot be accessed before they are declared. This behavior helps catch potential issues and encourages proper variable usage.
+7) Compatibility with ES6 Modules:
+When working with ES6 modules, let and const fit better with the module system and can lead to more predictable behavior when imported and used across different files.
+8) Modern Coding Standards:
+As JavaScript has evolved, modern coding standards and best practices have emerged that recommend using let and const to align with the language's intended scoping and variable behavior.
+------------------------------------------------------------------------------------

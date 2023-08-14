@@ -1,0 +1,47 @@
+HOW JAVASCRIPT WORKS:- Every thing in js happens inside an execution context.
+In JavaScript, the execution of code occurs within global execution context, which include both the variable environment (also known as the lexical environment) and the code/thread of execution, and it happens with two phases:- 1) Memory creation/allocation phase and 2)code execution phase.
+ 
+1) Execution Context:
+An execution context is a fundamental concept in JavaScript's runtime environment. It represents the environment in which your code is executed. Each time a function is invoked/called, a new execution context is created.
+----------------------------------------------------------------------------------------------------
+2) Variable Environment / Lexical Environment:
+The variable environment (or lexical environment) is a data structure that holds identifiers (variables and function names) and their corresponding values within the current scope. It provides the context for variable and function resolution during code execution.That means  within the variable environment, there is a memory allocation phase where memory space is set aside for variables and function declarations. 
+
+During the memory allocation phase of an execution context, JavaScript:
+     a) Allocates Memory: It allocates memory space for all variable declarations and function declarations (not function expressions) within the current scope. These variables and functions are accessible throughout the entire scope, even before their actual declarations in the code.
+
+     b) Assigns Initial Values: Variables are initialized to undefined (place holder) by default, while function declarations are assigned their actual function definitions. This means that you can use variables and call functions even before they appear in the code.
+----------------------------------------------------------------------------------------------------
+3) Code/Thread of Execution:
+The code or thread of execution refers to the actual sequence of statements being executed. It represents the order in which code instructions are processed. As the code is executed, whenever a function is called/invoked, a new execution context is created for that function. Each execution context has its own variable environment and code/thread of execution.
+When a function completes its execution, the associated execution context is removed from the call stack, effectively "popping" it off. This process helps manage memory and allows the program to continue executing other functions and tasks. Let's break down the sequence of events:
+
+a) Function Call:
+When a function is called, a new execution context is created and pushed onto the call stack. This execution context contains the function's variable environment (including parameters, local variables, and function declarations) and the code/thread of execution for that function.
+b) Function Execution:
+The function's code is executed, and any relevant operations take place within its execution context.
+c) Function Completion:
+Once the function completes its execution (reaches the end of its code or encounters a return statement), the execution context for that function is no longer needed.
+d) Execution Context Removal:
+The execution context is removed from the call stack, effectively "popping" it off. This means that the function's variable environment and other associated data are cleaned up and released from memory.
+e) Control Returns:
+After the execution context is removed, control returns to the context of the calling function. If there was no calling function (e.g., the function was at the global scope), control returns to the program's initial state.
+This process continues as functions are called and executed, creating new execution contexts and adding them to the call stack. Once a function completes its execution, its context is removed from the stack, allowing the program to move forward.
+It's worth noting that this stack-based execution model ensures that the program maintains proper control flow, manages memory efficiently, and avoids potential issues like memory leaks.
+----------------------------------------------------------------------------------------
+Execution Context Stack (Call Stack): Each time a function is called, its execution context is pushed onto the call stack. The function at the top of the stack is the one currently being executed, while other functions wait for their turn. When a function completes its execution, its context is popped from the stack, and the control returns to the previous context.
+
+The primary purpose of the call stack in JavaScript (and in many other programming languages) is to maintain the order of execution of execution contexts. The call stack is a critical mechanism that ensures proper control flow and manages the sequence in which functions are called and executed.
+Here's a summary of the role of the call stack in maintaining the order of execution:
+
+a) Order of Execution:
+The call stack ensures that functions are executed in the order in which they are called. When a function is called, its execution context is added to the top of the call stack. The function at the top of the stack is the one currently being executed.
+b) Last-In-First-Out (LIFO):
+The call stack follows a Last-In-First-Out (LIFO) order, meaning that the last function that was added to the stack (most recent) is the first one to be removed (popped) once its execution is complete.
+c) Control Flow:
+As functions complete their execution, their execution contexts are removed from the stack, and control returns to the previous context (function) in the stack. This allows the program to resume execution from where it left off.
+d) Nested Function Calls:
+If a function calls another function (nested function call), the calling function's execution is paused, and the new function's execution context is added to the top of the stack. Once the nested function completes, its context is removed, and control returns to the calling function.
+e) Managing Memory and Resources:
+The call stack also plays a crucial role in managing memory and resources. By adding and removing execution contexts from the stack, the program efficiently allocates and releases memory for variables, function data, and other resources.
+

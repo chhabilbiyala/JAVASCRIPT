@@ -1,0 +1,58 @@
+When a JavaScript program is run, a global object and an execution context are created as part of the program's runtime environment. Let's break down these concepts:
+Global Object (Window in a Browser Environment):
+In a web browser environment, the global object is commonly referred to as the window object. It represents the top-level object that provides a global scope for variables, functions, and objects in the browser's JavaScript environment. It serves as the container for all global variables and functions and provides access to browser-related features and APIs.
+For example, if you declare a global variable or function in your JavaScript code, they become properties of the window object in the browser context. This allows you to access them globally from anywhere in your code.
+
+1) Global Variables and Functions: Variables and functions defined in the global scope of your JavaScript code become properties and methods of the window object. This allows you to access them globally from any part of your code.
+2) Document Object Model (DOM) APIs: The window object provides access to the DOM, allowing you to interact with and manipulate the structure and content of the web page. Common properties and methods include window.document, window.document.getElementById(), window.document.createElement(), etc.
+3) Timers and Intervals: The window object provides functions for setting timers and intervals, such as window.setTimeout(), window.setInterval(), and window.clearTimeout().
+4) Browser Information and Navigation: The window object includes properties like window.location (current URL), window.history (browser history), and window.navigator (information about the browser and user agent).
+5) User Interface Interaction: The window object provides functions for displaying alerts, prompts, and confirmation dialogs using window.alert(), window.prompt(), and window.confirm().
+5) Browser Windows and Frames: The window object allows you to interact with browser windows and frames, including opening new browser windows using window.open() and navigating between frames.
+6) Global Storage: The window object provides storage options like window.localStorage and window.sessionStorage for storing data persistently or temporarily in the browser.
+7) Global Error Handling: The window object includes the window.onerror event handler, which can be used to catch and handle JavaScript errors globally.
+8) Screen Information: The window object provides information about the user's screen, such as screen dimensions and pixel density, through properties like window.screen.
+9) Console Logging: While not part of the window object itself, the console object is a property of window and provides methods for logging information, warnings, and errors to the browser console.
+-----------------------------------------------------------------------------
+JavaScript was designed as a loosely typed language architecture for several reasons, each contributing to its flexibility, simplicity, and suitability for web development:
+
+1) Simplicity and Ease of Use: Loosely typed languages allow developers to write code more quickly and with fewer restrictions. They promote a more intuitive and human-readable coding style by allowing values to be used without explicit type conversions.
+2) Dynamic Nature of the Web: JavaScript was created to make web pages interactive and dynamic. In a web environment, you often deal with data from various sources and user interactions, and enforcing strict type rules could lead to increased complexity and reduced flexibility in handling these diverse data types.
+3) Rapid Prototyping: JavaScript was initially developed by Netscape with the goal of enabling rapid prototyping and quick development of web pages. Loosely typed languages facilitate experimentation and iteration by reducing the need for explicit type declarations and conversions.
+4) Web Page Interactivity: JavaScript's primary use case was to provide interactivity and enhanced user experiences on web pages. Loosely typed languages fit well with this goal, allowing developers to work with user inputs, DOM elements, and other web-related data without being hindered by strict type requirements.
+5) Early Influence of Other Languages: JavaScript was influenced by languages like Java and Scheme. While it shares some features with these languages, it aimed to have a simpler and more approachable syntax, which led to a more relaxed typing system.
+6) Scripting Language Roots: JavaScript was initially conceived as a lightweight scripting language for web pages. Its loose typing system aligns with the scripting language paradigm, where code is often executed dynamically and flexibility is prioritized over strict type checking.
+7) Minimalism and Flexibility: JavaScript was intentionally designed to be a minimalist language that could be embedded in web pages. A loosely typed architecture contributes to this minimalist approach by reducing the need for complex type systems.
+----------------------------------------------------------------------------------------------
+JS ENGINE ARCHITECTURE:- the JavaScript runtime environment provides the necessary infrastructure for JavaScript code to run on a wide range of devices and platforms, whether it's a web browser, server environment (like Node.js), or even embedded systems. It ensures that JavaScript code can interact with the host environment, manage asynchronous operations efficiently, and provide a seamless user experience. Different runtime environments have varying features and APIs, which is why JavaScript behaves differently depending on where it is executed.
+A JavaScript runtime environment is a crucial component that enables the execution of JavaScript code on various devices and platforms. It encompasses a variety of components that work together to execute JavaScript code efficiently and manage asynchronous operations. 
+
+The working of a JavaScript engine involves several phases, including Parsing, Compilation, and Execution. Let's explore each of these phases in detail:
+
+Parsing Phase:
+
+Input: The process begins when the JavaScript engine receives the source code, which is a sequence of characters that make up the JavaScript program.
+Tokenization: The source code is broken down into individual tokens, which are meaningful units like keywords, identifiers, operators, and literals.
+Abstract Syntax Tree (AST) Creation: The tokens are used to build an Abstract Syntax Tree, which represents the hierarchical structure of the code. The AST captures the relationships between different elements in the code, like expressions and statements.
+Syntax Checking: During this phase, the engine checks whether the code adheres to the syntax rules of the language. If any syntax errors are detected, the engine reports them to the developer.
+Compilation Phase:
+
+Interpreted vs. Compiled Languages: JavaScript is often described as an interpreted language because the source code is executed line by line by the interpreter. However, this isn't the whole story. Modern JavaScript engines employ a hybrid approach that involves both interpretation and compilation.
+JIT Compilation (Just-In-Time Compilation): In JIT compilation, the JavaScript engine translates the high-level JavaScript code into low-level machine code just before executing it. This contrasts with traditional compilers that produce machine code before execution. JIT compilation allows the engine to make optimizations based on runtime information, leading to improved performance.
+Steps of JIT Compilation:
+Parsing and AST Generation: The engine parses the code and generates an AST.
+Intermediate Representation (IR) Generation: The AST is converted into an intermediate representation that is easier to optimize.
+Optimization: The engine applies various optimizations to the intermediate representation, such as inlining functions, eliminating dead code, and optimizing variable access.
+Code Generation: The optimized intermediate representation is translated into machine code specific to the target hardware.
+Execution: The generated machine code is executed by the CPU, resulting in the desired behavior of the JavaScript program.
+Execution Phase:
+
+Code Execution: Once the code is compiled into machine code, it is executed by the CPU. This phase involves executing statements, evaluating expressions, and performing any necessary computations.
+Call Stack: During execution, the engine maintains a call stack to keep track of function calls and their execution contexts. Functions are added to the call stack when they are invoked and removed when they complete.
+Memory Management: The engine manages memory by allocating memory for variables, objects, and other data structures. It also handles memory deallocation when objects are no longer needed (garbage collection).
+Asynchronous Operations: When the engine encounters asynchronous operations, such as timers or network requests, it delegates the handling of these operations to the event loop. The event loop ensures that these tasks are executed asynchronously without blocking the main thread.
+In summary, the working of a JavaScript engine involves parsing the source code to create an abstract syntax tree, compiling the code into optimized machine code through JIT compilation, and executing the compiled code in the execution phase. The introduction of JIT compilation has greatly improved the performance of JavaScript by allowing the engine to make runtime optimizations based on actual usage patterns. This complex process is the backbone of how JavaScript code is executed efficiently on various devices and platforms.
+
+
+
+

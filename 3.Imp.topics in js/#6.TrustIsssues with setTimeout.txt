@@ -1,0 +1,51 @@
+Let's break down the trust issues with setTimeout and clarify how JavaScript's event loop and concurrency model work:
+
+console.log("start");
+
+setTimeout(function() {
+  console.log("timer");
+}, 5000);
+
+console.log("end");
+
+//---lots of lines of code----
+//---and it takes 10 seconds to run----
+
+The misconception arises from the assumption that the setTimeout callback function will execute immediately after the specified delay (in this case, 5000 milliseconds or 5 seconds). However, due to JavaScript's event loop and concurrency model, the actual behavior is different.
+
+When you call setTimeout, it schedules the provided callback function to be added to the callback queue after the specified delay. The callback queue holds tasks that are ready to be executed. However, the callback function will only be executed when the call stack is empty and all currently executing code has completed.
+
+In your example, the program execution proceeds as follows:
+
+The "start" message is logged.
+setTimeout is called, scheduling the callback function to run after 5000 milliseconds.
+The "end" message is logged.
+The program continues to execute "lots of lines of code," which takes around 10 seconds to complete.
+After the 10 seconds of execution, the call stack finally becomes empty.
+The event loop checks the callback queue and finds the "timer" callback function.
+The "timer" message is logged.
+So, the key point to understand is that the setTimeout callback function does not interrupt the current execution flow. It waits in the callback queue until the call stack is empty, and only then does it get a chance to execute. This is a crucial aspect of JavaScript's single-threaded, non-blocking concurrency model.
+
+The trust issue here is that developers might expect the setTimeout callback to run precisely after the specified delay, even if other code is still executing. In reality, JavaScript ensures that the callback runs at the earliest opportunity after the call stack is clear, which might not align with the exact timing specified by the delay.
+
+To handle scenarios where precise timing is required, developers often use techniques like Promises, async/await, or the Web Workers API to manage concurrency and timing more accurately.
+--------------------------------------------------------------------
+A beautiful example of trust issues with setTimeout() :- 
+
+console.log("start");
+
+setTimeout(function xyz() {
+  console.log("callback");
+}, 5000);
+
+console.log("end");
+
+let startDate = new Date().getTime();
+let endDate = startDate;
+
+while (endDate < startDate + 10000){
+    endDate = new Date().getTime();
+}
+
+console.log("while expires");
+----------------------------------------------------------------------------

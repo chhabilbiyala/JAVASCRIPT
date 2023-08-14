@@ -1,0 +1,26 @@
+Asynchronous programming in JavaScript refers to the ability to execute code in a non-blocking manner, allowing multiple tasks to be performed simultaneously without waiting for one task to complete before moving on to the next. This is a fundamental aspect of JavaScript that enables efficient handling of tasks that may take time to complete, such as fetching data from a server, reading/writing files, or waiting for user interactions.
+
+1) Non-Blocking Nature of JavaScript:
+The non-blocking nature of JavaScript means that the execution of code doesn't wait for time-consuming tasks to complete. Instead, it continues executing other code that doesn't depend on the completion of those tasks. This behavior is possible due to the event-driven and single-threaded architecture of JavaScript.
+One of the key mechanisms for achieving asynchronicity in JavaScript is the use of callbacks, promises, and more recently, async/await syntax.
+Example with setTimeout: Consider the following example using the setTimeout function, which demonstrates the non-blocking nature of JavaScript:
+
+console.log("Start");
+
+setTimeout(function() {
+    console.log("Timeout completed.");
+}, 2000);
+
+console.log("End");
+-------------------------------------
+In this example:
+--> The console.log("Start") statement is executed first and logs "Start" to the console.
+--> The setTimeout function is called with a callback function and a delay of 2000 milliseconds (2 seconds).
+--> Instead of waiting for 2 seconds, JavaScript continues executing the next line immediately.
+--> The console.log("End") statement is executed and logs "End" to the console.
+--> After approximately 2 seconds, the timeout is completed, and the callback function is executed, logging   "Timeout completed." to the console.
+
+This demonstrates how JavaScript doesn't wait for the setTimeout to complete before continuing to execute the next lines of code. The non-blocking behavior allows other tasks to be performed while waiting for the specified delay.
+
+"Time, Tide & JavaScript Waits for None": The saying "Time, Tide & JavaScript Waits for None" emphasizes that JavaScript's fast and non-blocking nature allows it to continue executing code without waiting for time-consuming operations to complete. This enables efficient handling of tasks and interactions, making JavaScript well-suited for various scenarios, including web development, asynchronous operations, and event-driven programming.
+-----------------------------------------------------------------------
