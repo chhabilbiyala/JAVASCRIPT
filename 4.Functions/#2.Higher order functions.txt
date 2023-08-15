@@ -1,0 +1,237 @@
+What is a Higher-Order Function?:- 
+A higher-order function is a function that either accepts one or more functions as arguments or returns a function as its result. In other words, it treats functions as values, allowing you to work with them just like any other data type.
+
+Example 1: Function as an Argument
+Let's start with an example of a higher-order function that accepts another function as an argument and uses it:
+
+// Higher-order function
+function operate(operation, x, y) {
+  return operation(x, y);
+}
+
+// Regular functions
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+// Using the higher-order function with different operations
+console.log(operate(add, 5, 3)); // Output: 8 (5 + 3)
+console.log(operate(subtract, 10, 4)); // Output: 6 (10 - 4)
+
+In this example, operate is a higher-order function that accepts an operation function as an argument along with two numbers, x and y. It then applies the provided operation to the two numbers.
+----------------------------------------------------------------------------------------------
+Example 2: Function as a Result
+Here's an example of a higher-order function that returns a function as its result:
+
+// Higher-order function
+function multiplier(factor) {
+  return function (number) {
+    return number * factor;
+  };
+}
+
+// Create specific multipliers
+const double = multiplier(2);
+const triple = multiplier(3);
+
+console.log(double(5)); // Output: 10 (5 * 2)
+console.log(triple(7)); // Output: 21 (7 * 3)
+
+In this example, multiplier is a higher-order function that takes a factor and returns a new function that multiplies a given number by that factor. The returned functions (double and triple) are closures that "remember" the factor value and can be used to perform the multiplication later.
+--------------------------------
+Summary of Higher-Order Functions:
+
+A higher-order function can accept functions as arguments.
+A higher-order function can return functions as results.
+Higher-order functions allow for more flexible and reusable code by enabling you to encapsulate behaviors and operations.
+Higher-order functions are a key concept in functional programming, and they provide a powerful way to create more modular and maintainable code. They allow you to separate concerns and compose functionalities in a clean and elegant manner.
+------------------------------------------------------------------------------------------------
+1) MAP FUNCTION:- The map function is a higher-order function in JavaScript that is used to transform elements of an array by applying a given function to each element and returning a new array with the transformed values. It's a powerful tool for creating a new array based on the original array's elements while maintaining a one-to-one correspondence.
+The basic syntax of the map function is as follows:
+
+const newArray = originalArray.map(callbackFunction);
+
+Here's a more detailed breakdown of the map function:
+1) originalArray: This is the array you want to transform.
+2) callbackFunction: This is the function that will be applied to each element of the originalArray. The callback function takes three arguments:
+      currentValue: The current element being processed in the array.
+      index: The index of the current element in the array.
+      array: The array being processed.
+3) newArray: This is the new array that will be returned by the map function. It contains the transformed values of the originalArray based on the logic defined in the callbackFunction.
+Ex:- 
+
+// Define the callback function
+function squareNumber(number) {
+  return number * number;
+}
+
+// Original array
+const numbers = [1, 2, 3, 4, 5];
+
+// Apply the callback function using the map function
+const squaredNumbers = numbers.map(squareNumber);
+
+console.log(squaredNumbers); // Output: [1, 4, 9, 16, 25]
+--------------------------------------------------------
+OR,
+const numbers = [1, 2, 3, 4, 5];
+
+const squaredNumbers = numbers.map(function(number) {
+  return number * number;
+});
+
+console.log(squaredNumbers); // Output: [1, 4, 9, 16, 25]
+--------------------------------------------------------
+Using Arrow Functions for Conciseness:
+
+const numbers = [1, 2, 3, 4, 5];
+
+const squaredNumbers = numbers.map(number => number * number);
+
+console.log(squaredNumbers); // Output: [1, 4, 9, 16, 25]
+----------------------------------------------------------------------------------------------------
+2) FILTER FUNCTION:- The filter function is another higher-order function in JavaScript that operates on arrays. It's used to create a new array containing elements from the original array that satisfy a certain condition specified by a provided callback function. In other words, the filter function allows you to filter out elements based on a given criteria.
+The basic syntax of the filter function is as follows:
+
+const newArray = originalArray.filter(callbackFunction);
+
+EX:- 
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const evenNumbers = numbers.filter(function(number) {
+  return number % 2 === 0;
+});
+
+console.log(evenNumbers); // Output: [2, 4, 6, 8, 10]
+-------------------------------------------------------
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const evenNumbers = numbers.filter(number => number % 2 === 0);
+
+console.log(evenNumbers); // Output: [2, 4, 6, 8, 10]
+---------------------------------------------------------------------------------------------
+3) REDUCE FUNCTION:- The reduce function is another higher-order function in JavaScript that is used to "reduce" an array to a single value by iteratively applying a provided callback function to each element of the array.
+The basic syntax of the reduce function is as follows:
+
+const result = array.reduce(callbackFunction, initialValue);
+
+EX:- 
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = numbers.reduce(function(accumulator, currentValue) {
+  return accumulator + currentValue;
+}, 0);
+
+console.log(sum); // Output: 15 (1 + 2 + 3 + 4 + 5)
+
+In this example, the reduce function applies the provided callback function to each element in the numbers array, accumulating the sum along the way. The initial value of the accumulator is set to 0, and the callback function adds each currentValue to the accumulator.
+----------------------------------------
+Using Arrow Functions for Conciseness:
+
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+console.log(sum); // Output: 15 (1 + 2 + 3 + 4 + 5)
+---------------------------------------------------------------------------------------------------------
+const people = [
+  { firstname: "Alice", age: 25, lastname: "Smith" },
+  { firstname: "Bob", age: 30, lastname: "Johnson" },
+  { firstname: "Charlie", age: 25, lastname: "Brown" },
+  { firstname: "David", age: 28, lastname: "Davis" },
+  { firstname: "Eve", age: 30, lastname: "Miller" },
+  { firstname: "Frank", age: 25, lastname: "Wilson" },
+];
+
+// Using map to bind first name and last name
+const fullNameArray = people.map(function(person) {
+  return person.firstname + " " + person.lastname;
+});
+
+console.log("Full Names:", fullNameArray);
+
+// Using reduce to count the number of people with the same age
+const ageCount = people.reduce(function(acc, person) {
+  if (!acc[person.age]) {
+    acc[person.age] = 1;
+  } else {
+    acc[person.age]++;
+  }
+  return acc;
+}, {});
+
+console.log("Age Count:", ageCount);
+
+// Using filter to find people whose age is less than a specific age
+const specificAge = 28;
+const youngerPeople = people.filter(function(person) {
+  return person.age < specificAge;
+});
+
+console.log("People Younger Than " + specificAge + ":", youngerPeople);
+----------------------------------------------------
+const people = [
+  { firstname: "Alice", age: 25, lastname: "Smith" },
+  { firstname: "Bob", age: 30, lastname: "Johnson" },
+  { firstname: "Charlie", age: 25, lastname: "Brown" },
+  { firstname: "David", age: 28, lastname: "Davis" },
+  { firstname: "Eve", age: 30, lastname: "Miller" },
+  { firstname: "Frank", age: 25, lastname: "Wilson" },
+];
+
+// Using map to bind first name and last name
+const fullNameArray = people.map(person => `${person.firstname} ${person.lastname}`);
+console.log("Full Names:", fullNameArray);
+
+// Using reduce to count the number of people with the same age
+const ageCount = people.reduce((acc, person) => {
+  if (!acc[person.age]) {
+    acc[person.age] = 1;
+  } else {
+    acc[person.age]++;
+  }
+  return acc;
+}, {});
+console.log("Age Count:", ageCount);
+
+// Using filter to find people whose age is less than a specific age
+const specificAge = 28;
+const youngerPeople = people.filter(person => person.age < specificAge);
+console.log("People Younger Than " + specificAge + ":", youngerPeople);
+----------------------------------------------------
+In this example, we:
+-> Use map to create an array of full names by combining firstname and lastname.
+-> Use reduce to count the number of people with the same age. The accumulator (acc) is an object where the keys represent ages and the -> values represent the count of people with that age.
+Use filter to find people whose age is less than a specific age (in this case, 28).
+
+Remember that the map, filter, and reduce functions do not modify the original array; they create new arrays or values based on the provided logic.
+---------------------------------------------------------------------------------------------------------
+Chaining the map, filter, and reduce methods refers to the practice of applying these methods sequentially on an array in a single line of code. This allows you to perform a series of operations on the array elements without the need for intermediate variables or multiple loops. Chaining these methods can lead to more concise and readable code.
+Chaining these methods allows you to apply them in sequence, where each method takes the output of the previous method and processes it further. This is possible because each of these methods returns a new array or a single value, which can be directly used as input for the next method.
+
+We'll use chaining to calculate the total price of items with a discount applied.
+
+const cart = [
+  { name: "Shirt", price: 25, discountPercentage: 10 },
+  { name: "Jeans", price: 50, discountPercentage: 20 },
+  { name: "Shoes", price: 80, discountPercentage: 15 },
+  { name: "Hat", price: 15, discountPercentage: 5 },
+  { name: "Socks", price: 5, discountPercentage: 0 },
+  { name: "Jacket", price: 100, discountPercentage: 25 },
+];
+
+const totalDiscountedPrice = cart
+  .filter(item => item.discountPercentage > 0) // Filter items with a discount
+  .map(item => ({ ...item, discountedPrice: item.price * (1 - item.discountPercentage / 100) })) // Calculate discounted price
+  .reduce((total, item) => total + item.discountedPrice, 0); // Calculate total discounted price
+
+console.log("Total Discounted Price:", totalDiscountedPrice);
+
+In this extended theoretical example:
+
+The filter method filters out items without a discount (e.g., "Socks").
+The map method calculates the discounted price for each item and adds a new property discountedPrice to the item.
+The reduce method calculates the total discounted price by summing up the discountedPrice values of items with discounts applied (i.e., "Shirt", "Jeans", "Shoes", "Hat", "Jacket").
+---------------------------------------------------------------------------------------
