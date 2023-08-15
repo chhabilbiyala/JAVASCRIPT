@@ -1,0 +1,85 @@
+In oldendays if we have to handle multiple asynchronous operations which are dependent on each other, there was only one way to do that is to create callback hell. But Callback hell leads to unreadable and unmaintainable error-prone asynchronous code due to excessive nesting of callbacks along with other limitations & also in callback hell we give responsibility of callback function to some other function blindly, it can be risky. 
+DEFINATION:- promise is an object representing an eventual completion or failure of an Asynchronous operation. Promise object is a placeholder for a certain period of time until we receive a value from the asynchronous operation. Simple it is a container for the future value.
+Before Promises, managing asynchronous operations in JavaScript often involved using callbacks, which could lead to complex and hard-to-maintain code, especially when dealing with multiple asynchronous tasks. Promises provide a more structured and elegant way to handle such situations.
+Ex:- 
+const cart = ["shoer", "pant", "kurta", "jeana"];
+
+createOrder(cart, function(orderId) {
+    proceedToPayment(orderId);
+})
+//--------------------------------------------------
+const cart1 = ["shoer", "pant", "kurta", "jeana"];
+
+const promise = createOrder(cart) ;
+
+promise.then(function(orderId) {
+    proceedToPayment(orderId);
+})
+
+In first code we blindly providing call back function (proceedToPayment function)  to createOrder, but in the second code we are attaching our callback function to a promise object. Instead of nesting function (for handling async operations) leading to callback hell, providing a callback function to a promise object reduces the risk of callback hell and enhances error handling due to the structured and organized nature of promise-based asynchronous code.
+--------------------------------------------------------------------------------------------------------------
+Promise States: A Promise can be in one of three states:
+1) Pending: The initial state, representing the ongoing asynchronous operation.
+2) Fulfilled (Resolved): The operation completed successfully, and the Promise is resolved with a value.
+3) Rejected: The operation encountered an error, and the Promise is rejected with a reason.
+Creating a Promise:
+You create a Promise using the Promise constructor. The constructor takes a function with two parameters: resolve and reject. Inside this function, you perform your asynchronous task and then call resolve when the task is successful or reject when it fails.
+
+const myPromise = new Promise((resolve, reject) => {
+  // Asynchronous task
+  if (/* task successful */) {
+    resolve('Success value');
+  } else {
+    reject('Error reason');
+  }
+});
+------------------------------------
+a) Using Promises: Once you have a Promise, you can handle its results using the .then() and .catch() methods. .then() is used to handle successful fulfillment, and .catch() is used to handle errors.
+
+myPromise.then((result) => {
+  console.log('Promise resolved:', result);
+}).catch((error) => {
+  console.error('Promise rejected:', error);
+});
+-------------------------------------
+b) Chaining Promises: Promise chaining is a much better way to handle dependent asynchronous operations compared to callback hell.  Promises can be chained to perform sequential asynchronous operations. The result of one .then() callback can be passed to the next 
+.then() callback.
+
+fetchData()
+  .then((data) => processData(data))
+  .then((processedData) => displayData(processedData))
+  .catch((error) => handleError(error));
+--------------------------------------
+c) Promise.all():- Promise.all() takes an array of promises and returns a new promise that resolves with an array of all resolved values when all the input promises have resolved. If any of the input promises is rejected, the returned promise is immediately rejected with the reason of the first rejected promise.
+
+const promises = [promise1, promise2, promise3];
+Promise.all(promises)
+  .then((results) => {
+    console.log('All promises resolved:', results);
+  })
+  .catch((error) => {
+    console.error('An error occurred:', error);
+  });
+------------------------------------------
+d) Promise.race() returns a Promise that resolves or rejects as soon as one of the input Promises resolves or rejects.
+
+const promises = [promise1, promise2, promise3];
+Promise.race(promises)
+  .then((firstResult) => {
+    console.log('First promise resolved:', firstResult);
+  })
+  .catch((error) => {
+    console.error('An error occurred:', error);
+  });
+------------------------------------------
+5) Async/Await: Async/Await is a modern syntax built on top of Promises, making asynchronous code even more readable and synchronous-looking. It allows you to write asynchronous code in a more sequential manner.
+
+async function myAsyncFunction() {
+  try {
+    const result = await myPromise;
+    console.log('Async result:', result);
+  } catch (error) {
+    console.error('Async error:', error);
+  }
+}
+--------------------------------------------

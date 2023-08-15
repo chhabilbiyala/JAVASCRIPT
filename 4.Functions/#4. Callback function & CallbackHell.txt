@@ -1,0 +1,177 @@
+6) CALLBACK FUNCTION:- JavaScript is inherently single-threaded and synchronous in nature, meaning it executes one operation at a time in a sequential manner. However, with the use of callback functions and various asynchronous mechanisms, JavaScript can achieve asynchronous behavior, allowing it to handle tasks concurrently without blocking the main execution thread.
+Callback Functions: A callback function is a function that is passed as an argument to another function and is intended to be executed at a later time, often after an asynchronous operation completes. Callbacks are a fundamental way to achieve asynchronous behavior in JavaScript.
+Non-blocking Operations: Asynchronous operations (like reading files, making network requests, or handling user input) can be initiated and run in the background without blocking the main execution thread. When these operations complete, their associated callback functions are placed in the task queue for execution.
+Asynchronous Functions and APIs: JavaScript provides asynchronous functions and APIs, like setTimeout, setInterval, and AJAX requests, that allow you to schedule tasks to be executed in the future or in response to external events. These functions don't block the main thread while waiting for the task to complete.
+
+Blocking of Main Thread (Call Stack): In JavaScript, the main thread (also referred to as the call stack) is where your code is executed sequentially. If a function takes a considerable amount of time to complete its execution, it can "block" the main thread. During this time, the main thread is occupied with executing that function, and other code execution, user interactions, and events are delayed or blocked. This can lead to unresponsive user interfaces, slow performance, and a poor user experience.
+
+Asynchronous Execution and Callbacks: To prevent the blocking of the main thread and maintain a responsive user interface, JavaScript uses asynchronous execution. Asynchronous operations, like network requests or reading files, are performed outside the main thread. Callback functions are used to handle the results of these asynchronous operations. By providing a callback, you can specify what should happen once the asynchronous task is completed, without waiting for it to finish. This allows the main thread to continue executing other tasks while waiting for the asynchronous operation to complete.
+
+The term "callback function" is used in the context of asynchronous programming, where a function is passed as an argument to another function and is intended to be called at a later time, often after some asynchronous operation completes.
+
+setTimeout(function() {
+  console.log("timer");
+}, 5000);
+
+function x(y) {
+  console.log("hey x");
+  y();
+}
+
+x(function y() {
+  console.log("hey y");
+});
+
+In this example, y is a callback function because it is being passed as an argument to the function x, and x is designed to call this function later, if function y taking any considerable amount of time, and js engine will carry out the function asynchronically.
+
+Here are some common callback functions in JavaScript:
+
+setTimeout(): Executes a function after a specified delay.
+setInterval(): Repeatedly executes a function with a fixed time delay between each execution.
+addEventListener(): Registers a function to be called when a specific event occurs on a DOM element.
+fetch(): Performs asynchronous network requests and provides a callback for handling the response.
+Promise.then(): Registers a callback to be executed when a Promise resolves.
+Array.prototype.forEach(): Executes a provided function once for each array element.
+Array.prototype.map(): Creates a new array by calling a provided function on each element of the original array.
+Array.prototype.filter(): Creates a new array with all elements that pass a test implemented by the provided function.
+Array.prototype.reduce(): Applies a function against an accumulator and each element in the array (from left to right) to reduce it to a single value.
+XMLHttpRequest.onreadystatechange: A callback function for handling different states of an XMLHttpRequest object.
+-------------------------------------------------------------------------------------------------------------------------------
+
+CALLBACK HELL:- Callback hell, also known as the "Pyramid of Doom," is a term used to describe a situation in asynchronous programming where multiple nested callbacks are used to handle asynchronous operations. It occurs when you have a sequence of asynchronous tasks that depend on each other, leading to deeply nested callback functions. This can make the code difficult to read, understand, and maintain.
+The callback hell is evident in this code due to the increasing indentation levels and nested functions. As the sequence of asynchronous tasks grows, the code becomes more difficult to read, understand, and debug. This can lead to maintenance challenges and make the code error-prone.
+Ex:- 
+let cart = ["shirt", "pants", "underwear", "jeans"];
+
+api.createOrder(cart, function () {
+    api.proceedToPayment(function () {
+        api.showOrderSummary(function () {
+            api.updateWallet(function() {
+                // ...
+            });
+        });
+    });
+});
+
+Here's what's happening step by step:
+1) api.createOrder: You start by creating an order with items in the cart. You pass a callback function that will be executed once the order creation is complete.
+2) api.proceedToPayment: Inside the first callback, you proceed to the payment process. Again, you pass another callback function that will be executed once the payment process is complete.
+3) api.showOrderSummary: Inside the payment callback, you show the order summary. You pass another callback function that will be executed once the order summary is shown.
+4) api.updateWallet: Finally, inside the order summary callback, you attempt to update the user's wallet. 
+----------------------------------------------------------------------------------------
+Here are some of the disadvantages of callback hell:
+1) Readability and Maintainability: Code that is deeply nested with callbacks becomes difficult to read and understand. This can make it challenging for developers to follow the logic, leading to maintenance difficulties, bugs, and increased cognitive load.
+2) Debugging: Identifying and tracing the source of bugs in callback-heavy code can be a complex and time-consuming process, especially when callbacks are deeply nested.
+3) Error Handling: Properly handling errors in callback hell can become cumbersome. Errors that occur within nested callbacks might not be properly caught or propagated, leading to unexpected behavior.
+4) Code Duplication: Callback hell can lead to code duplication as error-handling and common functionality might be repeated across multiple levels of nesting.
+5) Scoping Issues: Nested callbacks can introduce scoping issues and make it challenging to manage variables and their lifecycles. This can lead to unintended side effects and bugs.
+6) Refactoring and Extensibility: As the codebase evolves, making changes or adding new features to callback-heavy code can become complex and error-prone. Refactoring to accommodate changes might involve modifying multiple layers of nested callbacks.
+Testing: Writing tests for code with deep callback nesting can be tricky, and it might require creating mock or stub functions for each level of nesting.
+7) Readability for Colleagues: Callback hell can make it harder for other developers (or even your future self) to understand and work with the code, which can slow down collaboration and knowledge transfer.
+----------------------------------------------------------------------------------------
+Callback hell can be mitigated by using various techniques and patterns:
+1) Named Functions: Instead of using anonymous functions for callbacks, define named functions separately and pass them as callbacks. This can improve code readability.
+2) Promises: Promises are a modern asynchronous programming concept that provides a more structured way to handle asynchronous operations. They allow you to chain asynchronous actions and handle errors more gracefully.
+3) Async/Await: Async/await is a syntactic enhancement built on top of Promises. It allows you to write asynchronous code that looks more like synchronous code, making it easier to follow the flow of the program.
+4) Modularization: Break down your code into smaller, modular functions that perform specific tasks. This can help reduce the depth of nesting and make your code more manageable.
+---------------------------------------------
+ Let's consider a more complex example of callback hell involving multiple asynchronous tasks in the context of a simulated online ordering process. In this example, we'll break down each step and explain the callback hell scenario:
+
+ // Simulated API functions with callbacks
+const api = {
+  placeOrder: (items, callback) => {
+    // Simulate placing an order
+    setTimeout(() => {
+      console.log("Order placed:", items);
+      callback();
+    }, 1000);
+  },
+  processPayment: (callback) => {
+    // Simulate processing payment
+    setTimeout(() => {
+      console.log("Payment processed");
+      callback();
+    }, 1500);
+  },
+  sendNotification: (message, callback) => {
+    // Simulate sending a notification
+    setTimeout(() => {
+      console.log("Notification sent:", message);
+      callback();
+    }, 500);
+  },
+  updateInventory: (items, callback) => {
+    // Simulate updating inventory
+    setTimeout(() => {
+      console.log("Inventory updated:", items);
+      callback();
+    }, 800);
+  },
+};
+
+let cart = ["item1", "item2", "item3"];
+
+api.placeOrder(cart, function () {
+  api.processPayment(function () {
+    api.sendNotification("Order shipped", function () {
+      api.updateInventory(cart, function () {
+        // And this will go on creating a callback hell
+      });
+    });
+  });
+});
+
+------------------------------
+In this example, we simulate an online ordering process with the following steps:
+1) api.placeOrder: We start by placing an order for items in the cart. A callback function is provided to execute when the order is placed successfully.
+2) api.processPayment: Inside the order callback, we process the payment for the order. Another callback function is provided to execute after the payment is processed.
+3) api.sendNotification: Inside the payment callback, we send a notification that the order has been shipped. Another callback function is provided to execute after the notification is sent.
+4) api.updateInventory: Inside the notification callback, we update the inventory to reflect the items that were ordered. Another callback function is provided to execute after the inventory is updated.
+5) This code demonstrates callback hell because of the increasing indentation and nested callbacks. The deeper the nesting, the harder it becomes to follow the flow of the code and understand the sequence of actions.
+To improve this code and avoid callback hell, you could consider using Promises or async/await. Here's a simplified example using Promises:
+
+function placeOrder(items) {
+  return new Promise((resolve) => {
+    api.placeOrder(items, resolve);
+  });
+}
+
+function processPayment() {
+  return new Promise((resolve) => {
+    api.processPayment(resolve);
+  });
+}
+
+function sendNotification(message) {
+  return new Promise((resolve) => {
+    api.sendNotification(message, resolve);
+  });
+}
+
+function updateInventory(items) {
+  return new Promise((resolve) => {
+    api.updateInventory(items, resolve);
+  });
+}
+
+async function completeOrder() {
+  try {
+    await placeOrder(cart);
+    await processPayment();
+    await sendNotification("Order shipped");
+    await updateInventory(cart);
+    console.log("Order completed successfully");
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+let cart = ["item1", "item2", "item3"];
+completeOrder();
+----------------------------------------------------------------------------------------------------
+
+INVERSION OF CONTROL:- IoC is all about inverting the control. To explain this in layman's terms, suppose you drive a car to your work place. This means you control the car. The IoC principle suggests to invert the control, meaning that instead of driving the car yourself, you hire a cab, where another person will drive the car. Thus, this is called inversion of the control - from you to the cab driver. You don't have to drive a car yourself and you can let the driver do the driving so that you can focus on your main work.
+The IoC principle helps in designing loosely coupled classes which make them testable, maintainable and extensible.
+In the world of software development, IoC means that instead of your code controlling everything directly, you let a framework or container manage certain aspects. This makes your code more flexible and easier to manage. But there also a demerit of inversion of control, that we lose our control over the function (proceedToPayment), bcoz we give the control of it to some other function (placeOrder). Means your life is now in the hands of that driver. Inversion of control might be very risky, bcoz we blindly trusting on some other function, we dont know wheather it will execute our function and will give a callback or not.
+We can handle this situation with the help of Promises.
+-----------------------------------------------------------------------------------------------------
