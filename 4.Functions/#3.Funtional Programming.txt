@@ -1,0 +1,75 @@
+const radius = [2, 4, 6, 8];
+
+function calculateArea(radius) {
+  const output = [];
+  for (i = 0; i < radius.length; i++) {
+    output.push(Math.PI * radius[i] * radius[i]);
+  }
+  return output;
+}
+
+function calculateCircumference(radius) {
+  const output = [];
+  for (i = 0; i < radius.length; i++) {
+    output.push(2 * Math.PI * radius[i]);
+  }
+  return output;
+}
+
+function calculateDiameter(radius) {
+  const output = [];
+  for (i = 0; i < radius.length; i++) {
+    output.push(2 * radius[i]);
+  }
+  return output;
+}
+
+console.log(calculateArea(radius));
+console.log(calculateCircumference(radius));
+console.log(calculateDiameter(radius));
+
+//---------------------------------------------------------------------
+
+const radius1 = [2, 4, 6, 8];
+
+const area = function(radius) {
+  return Math.PI * radius * radius;
+}
+
+const circumference = function(radius) {
+  return  2 * Math.PI * radius;
+}
+
+const diameter = function(radius) {
+  return 2 * radius;
+}
+
+const calculate = function (radius, logic) {
+  const output = [];
+  for (i = 0; i < radius.length; i++) {
+    output.push(logic(radius[i]));
+    return output;
+  }
+};
+
+console.log(calculate(radius1, area));
+console.log(calculate(radius1, circumference));
+console.log(calculate(radius1, diameter));
+//--------------------------------------------------------------------
+
+The second block of code is more optimized and is an example of functional programming in JavaScript compared to the first block of code. Let's break down the differences and explain how the second code snippet achieves optimization and embraces functional programming principles.
+
+Now, let's break down the differences and why the second code snippet is more optimized and follows functional programming principles:
+
+1) Reusable Functions: In the second snippet, the calculations for area, circumference, and diameter are each encapsulated within a separate function (area, circumference, and diameter). This promotes code reusability and adheres to the DRY (Don't Repeat Yourself) principle. In the first snippet, the calculations were repeated for each function.
+2) Functional Abstraction: The second snippet defines functions that abstract the mathematical operations required for calculating area, circumference, and diameter. This is a key characteristic of functional programming, where functions are treated as first-class citizens and can be passed around as arguments or returned as values.
+3) Higher-Order Function (calculate): The calculate function in the second snippet is a higher-order function that takes a logic function (area, circumference, or diameter) as an argument and applies it to each element of the input array. This encapsulates the common looping logic, making the code more concise and modular.
+4) No Mutation: In the second snippet, there are no variables being mutated within the looping logic. Instead, the output array is constructed by applying the desired calculation function to each element of the input array. This avoids potential side effects and adheres to the principle of immutability.
+5) Early Return and Optimization: While the second snippet includes an optimization flaw (an early return within the loop, which will only execute for the first element), we can assume that this was an oversight. The idea was likely to use a functional programming pattern where you map a function over each element of an array and collect the results, which would be more efficient if implemented correctly.
+6) Clarity and Readability: The second snippet is more readable and concise. It clearly separates concerns by defining separate functions for calculations and utilizes a higher-order function for encapsulating the looping logic.
+
+In summary, the second code snippet is more optimized and follows functional programming principles by encapsulating calculations in reusable functions, using higher-order functions for abstraction, and avoiding unnecessary mutation. However, the early return within the loop in the calculate function needs to be corrected for proper functionality.
+
+
+
+
