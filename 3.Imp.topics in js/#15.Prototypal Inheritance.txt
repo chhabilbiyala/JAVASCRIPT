@@ -1,0 +1,38 @@
+Prototypes and prototypal behavior are fundamental concepts in JavaScript that underlie its inheritance model. They play a crucial role in how objects share properties and methods, allowing for efficient code reuse and the creation of complex object hierarchies. Let's dive into these concepts in detail:
+a) Prototype:
+In JavaScript, every object has a special internal property called [[Prototype]], which is a reference to another object called its prototype. This forms the basis of prototypal inheritance. When you try to access a property or method on an object, and that property or method is not directly found on the object itself, JavaScript looks up the prototype chain to find it on the prototype of the object.
+
+b) Prototypal Chain:
+The chain of objects linked through their prototypes is known as the prototype chain. It's a way for objects to inherit properties and methods from other objects.
+Consider this example:
+
+const person = {
+    name: 'Alice'
+};
+
+const employee = {
+    jobTitle: 'Software Engineer'
+};
+
+employee.__proto__ = person; // Setting employee's prototype to person
+
+console.log(employee.name); // Output: "Alice"
+------------
+In this example, employee is linked to person through the prototype chain. When you access the name property on employee, JavaScript looks for it on employee, doesn't find it, and then looks on person.
+The __proto__ property is an internal property in JavaScript that represents the prototype of an object. It provides a way to directly access and manipulate the prototype of an object. However, it's worth noting that using __proto__ directly for prototype manipulation is not recommended in modern JavaScript. Instead, you should use Object.create() or constructor functions to establish prototypal relationships.
+The Object.create() method creates a new object with the specified prototype. It's a safer and more recommended way to create objects with specific prototypes, as it abstracts away the direct manipulation of the __proto__ property and provides better control over the prototype relationship.
+
+const person = {
+    name: 'Alice'
+};
+
+const employee = Object.create(person);
+employee.jobTitle = 'Software Engineer';
+
+console.log(employee.name); // Output: "Alice"
+------------------------------------------------------------------------------------------------------------------------
+Prototypal Behavior:
+Prototypal behavior refers to the way objects inherit properties and methods from their prototypes. When you access a property on an object, JavaScript first looks for the property directly on the object. If it doesn't find the property, it continues the search in the object's prototype, and so on up the prototype chain.
+When you add or modify properties on an object, those changes are local to that object and do not affect its prototype or other instances linked through the prototype chain.
+
+

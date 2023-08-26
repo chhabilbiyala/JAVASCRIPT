@@ -1,0 +1,33 @@
+Inheritance in JavaScript allows you to create a new class (a subclass or child class) that inherits properties and methods from an existing class (a superclass or parent class). This promotes code reuse and establishes a relationship between classes, where the child class can extend and specialize the behavior of the parent class. The super() keyword is used within a child class's constructor to call the constructor of the parent class and set up its properties.
+Let's walk through an example to understand inheritance and the use of the super() keyword:
+
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() {
+        console.log(`${this.name} makes a sound.`);
+    }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name); // Call the constructor of the parent class (Animal)
+        this.breed = breed;
+    }
+
+    speak() {
+        console.log(`${this.name} barks!`);
+    }
+}
+
+const dog = new Dog("Buddy", "Golden Retriever");
+dog.speak(); // Output: "Buddy barks!"
+-----------------
+In this example:
+Animal is the parent class with a constructor that sets the name property and a speak() method.
+Dog is the child class that extends Animal. It has its own constructor, which calls super(name) to invoke the parent class's constructor and set up the name property inherited from the parent class.
+Dog also overrides the speak() method to provide its own implementation.
+When you create an instance of Dog, the super(name) call in the Dog constructor invokes the constructor of the Animal class, which initializes the name property. This demonstrates the concept of inheritance, where the child class inherits properties and methods from the parent class.
+The super() keyword can also be used to call other methods from the parent class, not just the constructor. For example, you could call super.speak() within the Dog class to use the speak() method from the parent class alongside its own behavior.

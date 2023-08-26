@@ -1,13 +1,8 @@
-const cart = ["shoer", "pant", "kurta", "jeana"];
+function logInfo(info) {
+    console.log(`${this.prefix}: ${info}`);
+}
 
-createOrder(cart, function(orderId) {
-    proceedToPayment(orderId);
-})
-//--------------------------------------------------
-const cart1 = ["shoer", "pant", "kurta", "jeana"];
+const logger = logInfo.bind({ prefix: '[INFO]' });
 
-const promise = createOrder(cart) ;
+logger('Data received');
 
-promise.then(function(orderId) {
-    proceedToPayment(orderId);
-})

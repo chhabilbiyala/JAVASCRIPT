@@ -1,0 +1,124 @@
+In JavaScript, call, apply, and bind are three methods that are used to manipulate the context (the value of this) and arguments of a function. They are commonly used for function borrowing, function currying, and controlling the function's execution context. Let's explore each of these methods in detail:
+
+1) call Method:
+The call method is used to invoke a function with a specific this value and arguments provided individually. It allows you to set the context (this) explicitly for the function call. The syntax is as follows:
+
+function functionName(arg1, arg2, ...) {
+    // function body
+}
+
+functionName.call(thisValue, arg1, arg2, ...);
+---------------
+Here, thisValue is the value you want to set as the this context for the function call. The rest of the arguments are the arguments to be passed to the function.
+Example:- 
+
+function greet(name) {
+    console.log(`Hello, ${name}! I'm ${this.title}`);
+}
+
+const person = { title: 'Mr.' };
+
+greet.call(person, 'John');
+--------------
+USECASE:- 
+a) Function Borrowing:
+Function borrowing refers to using a method from one object on another object. This is possible when the method is not tightly coupled to the original object's properties. The call or apply method can be used to achieve this.
+
+const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    fullName: function() {
+        return this.firstName + ' ' + this.lastName;
+    }
+};
+
+const anotherPerson = {
+    firstName: 'Alice',
+    lastName: 'Smith'
+};
+
+// Borrow the fullName method from the person object
+const borrowedFullName = person.fullName.call(anotherPerson);
+
+console.log(borrowedFullName); // Output: "Alice Smith"
+----------------------------
+b) Controlling Execution Context:
+The call method is commonly used to control the execution context (this value) of a function, especially when the function is being used as a callback or in a different context.
+
+const car = {
+    brand: 'Toyota',
+    displayInfo: function() {
+        console.log(`This is a ${this.brand} car.`);
+    }
+};
+
+const bike = {
+    brand: 'Honda'
+};
+
+// Using the displayInfo method from the car object on the bike object
+car.displayInfo.call(bike); // Output: "This is a Honda car."
+---------
+Ex:- 
+const cat = {
+    sound: 'Meow!',
+    speak: function() {
+        console.log(this.sound);
+    }
+};
+
+const dog = {
+    sound: 'Woof!'
+};
+
+// Using the speak method from the cat object on the dog object
+cat.speak.call(dog); // Output: "Woof!"
+-------------------------------------------------------------------------------------------------------------------------
+2) apply Method:
+The apply method is similar to call, but it takes arguments as an array. It's useful when you have a variable number of arguments and you want to pass them in an array. The syntax is as follows:
+
+functionName.apply(thisValue, [arg1, arg2, ...]);
+
+Example:- 
+function introduce(name, age) {
+    console.log(`I'm ${name} and I'm ${age} years old. I'm ${this.role}`);
+}
+
+const person = { role: 'developer' };
+
+introduce.apply(person, ['Alice', 28]);
+----------
+Ex:- 
+function sum(a, b) {
+    return a + b;
+}
+
+const numbers = [5, 7];
+const result = sum.apply(null, numbers); // Equivalent to sum(5, 7)
+
+console.log(result); // Output: 12
+-----------
+Ex:- 
+const numbers = [25, 10, 7, 42, 8];
+
+const max = Math.max.apply(null, numbers);
+
+console.log(max); // Output: 42
+--------------------------------------------------------------------------------------------------------------------
+3) Bind Mehod:- The bind method is used to create a new function with a fixed this value, and optionally, some predefined arguments. It doesn't immediately invoke the function; instead, it returns a new function that can be called later. This can be particularly useful when you want to create functions with specific contexts for event listeners, callbacks, or whenever you need to reuse a function with certain parameters. The syntax is as follows:
+
+const newFunction = functionName.bind(thisValue, arg1, arg2, ...);
+
+function logInfo(info) {
+    console.log(`${this.prefix}: ${info}`);
+}
+
+const logger = logInfo.bind({ prefix: '[INFO]' });
+
+logger('Data received');
+--------------------------------
+In summary:
+Use call to invoke a function immediately with a specified context and arguments.
+Use apply to invoke a function immediately with a specified context and arguments provided as an array.
+Use bind to create a new function with a fixed context and optional arguments, which can be invoked later.
+These methods are powerful tools for controlling the behavior of functions and managing their context and arguments in JavaScript.

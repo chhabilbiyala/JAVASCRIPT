@@ -49,6 +49,33 @@ A higher-order function can accept functions as arguments.
 A higher-order function can return functions as results.
 Higher-order functions allow for more flexible and reusable code by enabling you to encapsulate behaviors and operations.
 Higher-order functions are a key concept in functional programming, and they provide a powerful way to create more modular and maintainable code. They allow you to separate concerns and compose functionalities in a clean and elegant manner.
+
+Here's a list of some commonly used higher-order functions in JavaScript along with a brief description of their functions:
+
+1) map: Creates a new array by applying a function to each element of an existing array.
+2) filter: Creates a new array with all elements that pass a test implemented by a provided function.
+3) reduce: Applies a function to accumulate a single value from the elements of an array (left-to-right).
+4) forEach: Executes a provided function once for each array element.
+5) sort: Sorts the elements of an array in place (and optionally, based on a compare function).
+6) find: Returns the first array element that satisfies a provided testing function.
+7) some: Checks if at least one element in the array passes a test implemented by a provided function.
+8) every: Checks if all elements in the array pass a test implemented by a provided function.
+9) flatMap: Maps each element using a function, then flattens the result into a new array.
+10) slice: Returns a shallow copy of a portion of an array into a new array selected from start to end.
+11) splice: Changes the contents of an array by removing, replacing, or adding elements in place.
+12) concat: Returns a new array that is the result of joining two or more arrays.
+13) bind: Creates a new function that, when called, has its this value set to a specific value.
+14) call: Invokes a function and allows you to pass in arguments individually.
+15) apply: Invokes a function and allows you to pass in arguments as an array.
+16) push: Adds one or more elements to the end of an array and returns the new length of the array.
+17) pop: Removes the last element from an array and returns that element.
+18) shift: Removes the first element from an array and returns that element.
+19) unshift: Adds one or more elements to the beginning of an array and returns the new length of the array.
+20) indexOf: Returns the first index at which a given element is found in an array, or -1 if not present.
+21) lastIndexOf: Returns the last index at which a given element is found in an array, or -1 if not present.
+22) includes: Determines whether an array contains a certain element and returns a boolean.
+
+These higher-order functions provide powerful tools for manipulating arrays, objects, and functions in JavaScript, and they are essential for writing clean and concise code using functional programming principles.
 ------------------------------------------------------------------------------------------------
 1) MAP FUNCTION:- The map function is a higher-order function in JavaScript that is used to transform elements of an array by applying a given function to each element and returning a new array with the transformed values. It's a powerful tool for creating a new array based on the original array's elements while maintaining a one-to-one correspondence.
 The basic syntax of the map function is as follows:

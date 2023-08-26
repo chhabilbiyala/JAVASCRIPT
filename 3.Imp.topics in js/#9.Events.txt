@@ -1,0 +1,66 @@
+Throttling is often used as a technique in event handling in JavaScript. It's a way to control the rate at which a specific function is invoked in response to a particular event, such as scrolling, resizing, mouse movement, or user input.
+Throttling is particularly useful in scenarios where events can fire rapidly, potentially causing performance issues if the associated event handler function is executed too frequently. By using throttling, you can ensure that the event handler is called at a controlled and reasonable rate, preventing excessive function calls and improving the overall responsiveness of the application.
+Throttling is often used to prevent excessive execution of resource-intensive functions that can cause performance issues or unnecessary load on the browser. It works by allowing a function to be called only once within a specified time interval, regardless of how many times the event triggering the function occurs.
+Throttling is an effective technique to limit the frequency at which a function is executed. This can be useful in situations where you want to avoid overloading a server, conserving network bandwidth, or improving the performance of an application
+Throttling can be applied to various types of events and is commonly used in web development to enhance user experience and optimize performance. It helps strike a balance between responding to events promptly and avoiding overuse of system resources.
+Here's a recap of how throttling fits into event handling in JavaScript:
+1) An event occurs, such as scrolling, resizing, or user input.
+2) An event handler function is triggered in response to the event.
+3) Throttling is applied to the event handler function, ensuring it's executed at a controlled rate, even if the event fires frequently.
+Throttling helps prevent performance bottlenecks and excessive function calls while maintaining a responsive user interface.
+----------------------------------------
+There are two main approaches to throttling: time-based throttling and leading/trailing edge throttling.
+a) Time-Based Throttling:
+In this approach, the function is executed at a fixed interval. If the event triggering the function occurs more frequently than the specified interval, some function calls may be skipped.
+b) Leading/Trailing Edge Throttling:
+This approach considers the timing of the first and last invocation of the function within a given time window. For example, with leading-edge throttling, the function is executed only at the beginning of the time window, while with trailing-edge throttling, the function is executed only at the end of the time window.
+Throttling is commonly used in scenarios like handling scroll events (for infinite scrolling), resizing events (for responsive design), and user input events (to prevent rapid submission of forms).
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+Debouncing in JavaScript is a technique used to control the frequency at which a function is executed in response to a specific event, such as scrolling, resizing, or user input. It ensures that the function is only called after a certain period of inactivity since the last occurrence of the event. In simpler terms, debouncing prevents a function from running too frequently and delays its execution until a "quiet" period has passed.
+Imagine you have a function that updates search results on a webpage as the user types in a search box. Without debouncing, this function might fire with every keystroke, potentially overwhelming your server with unnecessary requests and causing a suboptimal user experience. By using debouncing, you can delay the function call until the user has finished typing, ensuring that the function is called only once after a short pause.
+Here's a step-by-step explanation of debouncing:
+1) Event Occurs: An event, such as a user typing or scrolling, triggers the execution of a function.
+2) Timer Set: Instead of immediately executing the function, a timer is set for a specific duration (e.g., 300 milliseconds).
+3) Quiet Period: If the event occurs again before the timer expires, the existing timer is reset. This effectively extends the waiting period.
+4) Timer Expires: If the event hasn't occurred again during the specified quiet period (timer expiration), the function is finally executed.
+Debouncing helps optimize performance by reducing the number of function calls in situations where events are fired rapidly, without sacrificing user experience. It ensures that the function is executed only when the user's actions have settled down, leading to a smoother and more efficient interaction.
+
+Here's a simple example of debouncing in JavaScript:
+
+function debounce(func, delay) {
+  let timerId;
+  return function (...args) {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+// Example usage
+const debouncedSearch = debounce((query) => {
+  console.log(`Searching for: ${query}`);
+}, 300); // Debounce for 300 milliseconds
+
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', (event) => {
+  debouncedSearch(event.target.value);
+});
+
+In this example, the debounce function returns a debounced version of the provided function. The debouncedSearch function, which is the debounced version of the search function, is called every time the user types in the search input. However, the actual search function execution is delayed until the user pauses typing for at least 300 milliseconds, improving the performance of the search functionality.
+-----------------------------------------
+DIFFERENCE BETWEEN DEBOUNCING AND THROTTLING:- 
+Debouncing and throttling are both techniques used to control the rate of function execution in response to events, but they serve different purposes:
+A) Debouncing:
+Debouncing delays the execution of a function until a period of inactivity has occurred after the last event.
+It's particularly useful when you want to wait for the user to stop performing an action, such as typing, before triggering the function.
+Debouncing ensures that the function is called only once after the user has paused, preventing rapid and potentially redundant calls.
+Example use case: Delayed search suggestions while typing in a search box.
+---------------
+B) Throttling:
+Throttling limits the rate at which a function can be executed, allowing it to be called at a controlled interval.
+It's used when you want to enforce a maximum frequency of function calls, regardless of how often the event occurs.
+Throttling is useful for scenarios like continuous scrolling or frequent mouse movements, where you want to prevent excessive function calls.
+Example use case: Smooth scrolling behavior on a webpage.
+---------------------------------------------------------------------------------------------------------
