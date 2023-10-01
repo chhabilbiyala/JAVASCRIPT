@@ -23,4 +23,184 @@ In this example:
 This demonstrates how JavaScript doesn't wait for the setTimeout to complete before continuing to execute the next lines of code. The non-blocking behavior allows other tasks to be performed while waiting for the specified delay.
 
 "Time, Tide & JavaScript Waits for None": The saying "Time, Tide & JavaScript Waits for None" emphasizes that JavaScript's fast and non-blocking nature allows it to continue executing code without waiting for time-consuming operations to complete. This enables efficient handling of tasks and interactions, making JavaScript well-suited for various scenarios, including web development, asynchronous operations, and event-driven programming.
------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+There are two main methods to handle asynchronous operations in JavaScript: Promises with .then and .catch, and the async/await syntax. These methods provide ways to work with asynchronous code in a more readable and organized manner.
+
+1) Promises with .then and .catch:
+Promises were introduced to JavaScript to handle asynchronous operations more effectively. They allow you to write code that looks more synchronous while still being asynchronous. The basic syntax of a Promise is:
+
+const myPromise = new Promise((resolve, reject) => {
+  // Asynchronous operation
+  if (/* operation successful */) {
+    resolve(result);
+  } else {
+    reject(error);
+  }
+});
+
+myPromise
+  .then(result => {
+    // Handle successful result
+  })
+  .catch(error => {
+    // Handle error
+  });
+---------------------------------
+Async/Await:
+The async/await syntax builds on top of Promises and provides a more concise and synchronous-like way to work with asynchronous code. It uses the async keyword to define an asynchronous function and the await keyword to pause execution until a Promise is resolved:
+
+async function myAsyncFunction() {
+  try {
+    const result = await somePromise; // Wait for promise to resolve
+    // Handle result
+  } catch (error) {
+    // Handle error
+  }
+}
+
+myAsyncFunction();
+
+Using async/await can often make your asynchronous code more readable and maintainable, especially when dealing with multiple asynchronous operations.
+--------------------------------------
+Here's a practical example of using async/await to fetch data from an API:
+Let's say you want to fetch information about a user from a hypothetical API. You'll use the fetch function, which returns a Promise that resolves to the response from the API. With async/await, you can make this code more readable and sequential:
+
+// Asynchronous function that fetches user data from an API
+async function fetchUserData(userId) {
+  try {
+    const response = await fetch(`https://api.example.com/users/${userId}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    
+    const userData = await response.json(); // Wait for JSON data to be parsed
+    return userData;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error; // Rethrow the error to handle it further if needed
+  }
+}
+
+// Using the async function
+async function getUserInfo(userId) {
+  try {
+    const userData = await fetchUserData(userId);
+    console.log("User data:", userData);
+  } catch (error) {
+    console.error("Failed to retrieve user data:", error);
+  }
+}
+
+getUserInfo(123); // Call the function with a user ID
+
+In this example:
+1) fetchUserData is an asynchronous function that uses await to pause the execution until the API response is received and then the JSON data is parsed.
+2) The getUserInfo function uses await to call fetchUserData and then logs the user data. If there's an error during any of these steps, it's caught in the try block and handled in the catch block.
+3) When calling getUserInfo(123), it initiates the process of fetching user data for the user with ID 123.
+
+NOTE:- 
+When you use await in an async function, it doesn't block the entire JavaScript environment or the main thread of execution. Instead, it pauses the execution of the current async function until the awaited promise is resolved. However, during this time, JavaScript is free to execute other tasks and code outside of the async function. This is the key to understanding how JavaScript remains non-blocking:
+----------------------------------------------------------------------------------------------------------
+async/await provides a more linear and synchronous-looking code structure. You can use await inside an async function to pause the execution until a promise is resolved, making it easier to read and reason about asynchronous code.
+Example:
+
+async function someFunction() {
+  try {
+    const result = await somePromise;
+    // Handle the result
+    const anotherResult = await anotherPromise;
+    // Handle anotherResult
+  } catch (error) {
+    // Handle errors from any of the above promises
+  }
+}
+----------------------
+Within an async/await function, the code that comes after an await statement will pause and wait for the preceding asynchronous operation to complete. In your example:
+
+async function fetchUserData(userId) {
+  const response = await fetch(`https://api.example.com/users/${userId}`);
+  const userData = await response.json(); // Wait for JSON data to be parsed
+  console.log("Hii john")
+  return userData;
+}
+-----------------------------------
+const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("promise resolve value");
+    }, 10000);
+});
+
+async function handlePromise() {
+    console.log("Hello world");
+
+    const val = await p;
+    console.log("Namaste js");
+    console.log(val);
+
+    const val2 = await p;
+    console.log("Namaste js 2");
+    console.log(val2);
+}
+
+handlePromise();
+
+the await p statement does not pause the code for another 10 seconds because the p Promise has already been resolved after the first await. In JavaScript, a Promise is resolved only once. When a Promise is resolved, it keeps the resolved value, and subsequent await statements for the same Promise will not re-run the asynchronous operation but simply return the resolved value immediately.
+--------------------------------------
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("promise resolve value");
+    }, 10000);
+});
+
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("promise resolve value");
+  }, 5000);
+});
+
+async function handlePromise() {
+    console.log("Hello world");
+
+    const val = await p1;
+    console.log("Namaste js");
+    console.log(val);
+
+    const val2 = await p2;
+    console.log("Namaste js 2");
+    console.log(val2);
+}
+
+handlePromise();
+
+(inside the async function only)First of all p1 will be printed after 10 sec, and it will keep p2 blocked even though p2 have to printed after 5 sec, and after 10 sec p2 will be printed and 5 sec is less than 10 sec
+--------------------------
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("promise resolve value");
+    }, 5000);
+});
+
+const p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("promise resolve value");
+  }, 10000);
+});
+
+async function handlePromise() {
+    console.log("Hello world");
+
+    const val = await p1;
+    console.log("Namaste js");
+    console.log(val);
+
+    const val2 = await p2;
+    console.log("Namaste js 2");
+    console.log(val2);
+}
+
+handlePromise();
+
+But now in this case first of all p1 will be printed after 5sec and after p1, p2 will be printed after 10 sec. i.2 total = 15 sec.
+
+

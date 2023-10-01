@@ -2,6 +2,19 @@ Prototypes and prototypal behavior are fundamental concepts in JavaScript that u
 a) Prototype:
 In JavaScript, every object has a special internal property called [[Prototype]], which is a reference to another object called its prototype. This forms the basis of prototypal inheritance. When you try to access a property or method on an object, and that property or method is not directly found on the object itself, JavaScript looks up the prototype chain to find it on the prototype of the object.
 
+Imagine you have a bunch of toys. Some of these toys share certain features or abilities. Instead of explaining those features for every single toy, you decide to create a special toy manual. This manual lists down all the cool things the toys can do and how they look.
+Now, let's relate this to JavaScript objects:
+
+Objects and Prototypes: In JavaScript, think of objects as toys. Each object can have some properties (features) and methods (abilities). A prototype is like that special toy manual. It's an object too, but it's not a real toy. It's a reference that objects can use to look up properties and methods they don't have directly.
+
+[[Prototype]]: Every object in JavaScript secretly has a special link to another object, which is its prototype. This link is called [[Prototype]]. It's like saying that each toy has a connection to the special toy manual.
+
+Inheritance: When you want to use a property or method of an object (toy), JavaScript first checks if the object itself has that property or method. If it does, great! If not, JavaScript doesn't give up. It looks at the prototype (the special toy manual) linked to that object and checks if the property or method is listed there. If it finds it in the prototype, it uses it.
+
+Chaining: If the property or method isn't found in the object or its prototype, JavaScript doesn't stop yet. It goes up the chain and looks at the prototype's prototype (the manual's manual) and keeps going until it finds what it's looking for or reaches the end of the chain. This chain of checking is called the prototype chain.
+
+This way, you can create a bunch of objects that are related through these prototype links. If you add a new method or property to the prototype (the manual), all the objects connected to it will be able to use that new method or property without you having to add it to each object individually.
+--------------------------------------
 b) Prototypal Chain:
 The chain of objects linked through their prototypes is known as the prototype chain. It's a way for objects to inherit properties and methods from other objects.
 Consider this example:
@@ -19,7 +32,7 @@ employee.__proto__ = person; // Setting employee's prototype to person
 console.log(employee.name); // Output: "Alice"
 ------------
 In this example, employee is linked to person through the prototype chain. When you access the name property on employee, JavaScript looks for it on employee, doesn't find it, and then looks on person.
-The __proto__ property is an internal property in JavaScript that represents the prototype of an object. It provides a way to directly access and manipulate the prototype of an object. However, it's worth noting that using __proto__ directly for prototype manipulation is not recommended in modern JavaScript. Instead, you should use Object.create() or constructor functions to establish prototypal relationships.
+The __proto__ property is an internal property in JavaScript that represents the prototype of an object. It provides a way to directly access and manipulate the prototype of an object. However, it's worth noting that using __proto__ directly for prototype manipulation is not recommended in modern JavaScript (it is an old method for inheritance). Instead, you should use Object.create() or constructor functions to establish prototypal relationships.
 The Object.create() method creates a new object with the specified prototype. It's a safer and more recommended way to create objects with specific prototypes, as it abstracts away the direct manipulation of the __proto__ property and provides better control over the prototype relationship.
 
 const person = {
@@ -30,6 +43,32 @@ const employee = Object.create(person);
 employee.jobTitle = 'Software Engineer';
 
 console.log(employee.name); // Output: "Alice"
+-----------------------------
+Object.setPrototypeOf() method, which is another way to establish a prototype relationship between objects. It allows you to change the prototype of an existing object. 
+
+const person = {
+    name: 'Alice'
+};
+
+const employee = {
+    jobTitle: 'Software Engineer'
+};
+
+Object.setPrototypeOf(employee, person);
+
+console.log(employee.name); // Output: "Alice"
+
+In this example, you're setting the prototype of the employee object to be the person object using the Object.setPrototypeOf() method. As a result, the employee object inherits the name property from the person object, and you can access it as shown in the console.log() statement.
+------------------------------------------------------------------------------------------------------------------------
+What you're doing in your code is adding a new method to the Object.prototype and then attempting to use that method on an array. This is known as "extending prototypes" or "prototype pollution." While it's possible to add methods to built-in prototype objects like Object.prototype, it's generally not recommended due to potential side effects and unexpected behavior.
+
+let myHeroes = ["thor", "spiderman", "BatMan", "IronMan"];
+
+Object.prototype.hitesh = function() {
+    console.log(`Hitesh is present everywhere`);
+};
+
+myHeroes.hitesh();
 ------------------------------------------------------------------------------------------------------------------------
 Prototypal Behavior:
 Prototypal behavior refers to the way objects inherit properties and methods from their prototypes. When you access a property on an object, JavaScript first looks for the property directly on the object. If it doesn't find the property, it continues the search in the object's prototype, and so on up the prototype chain.

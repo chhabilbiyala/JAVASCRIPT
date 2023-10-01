@@ -1,5 +1,5 @@
 In oldendays if we have to handle multiple asynchronous operations which are dependent on each other, there was only one way to do that is to create callback hell. But Callback hell leads to unreadable and unmaintainable error-prone asynchronous code due to excessive nesting of callbacks along with other limitations & also in callback hell we give responsibility of callback function to some other function blindly, it can be risky. 
-DEFINATION:- promise is an object representing an eventual completion or failure of an Asynchronous operation. Promise object is a placeholder for a certain period of time until we receive a value from the asynchronous operation. Simple it is a container for the future value.
+DEFINATION:- promise is an object representing an eventual completion or failure of an Asynchronous operation. Promise object is a placeholder for a certain period of time until we receive a value from the asynchronous operation. Simply it is a container for the future value.
 Before Promises, managing asynchronous operations in JavaScript often involved using callbacks, which could lead to complex and hard-to-maintain code, especially when dealing with multiple asynchronous tasks. Promises provide a more structured and elegant way to handle such situations.
 Ex:- 
 const cart = ["shoer", "pant", "kurta", "jeana"];

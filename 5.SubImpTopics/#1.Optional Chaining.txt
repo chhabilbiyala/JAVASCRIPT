@@ -1,0 +1,21 @@
+Optional chaining is a feature introduced in JavaScript (ES2020) that simplifies the process of accessing properties and methods of nested objects and their properties when there's a possibility of encountering null or undefined values along the way. It allows you to write concise and safe code without having to manually check for each level of existence before accessing nested properties.
+Prior to optional chaining, if you wanted to access a deeply nested property, you would need to write multiple checks to ensure that each level exists before attempting to access the final property. This often resulted in verbose and error-prone code. Optional chaining streamlines this process.
+
+const user = {
+    name: "chhabil",
+    age: "21",
+    address: {
+        street: "main street",
+        city: "wardha",
+        state: "Maharashtra",
+        zip: "442101"
+    }
+}
+
+console.log(user.address?.roadnumber)
+
+You have an object named user containing various properties, including an address object.
+You're using optional chaining (?.) to access the roadnumber property within the address object.
+Since the user.address property exists, the JavaScript interpreter proceeds to check for the existence of the roadnumber property within the address object.
+However, the address object does not have a roadnumber property. Instead of throwing an error, the optional chaining operator returns undefined immediately without attempting to access the nonexistent property.
+Finally, the console.log statement outputs undefined to the console, as user.address?.roadnumber evaluates to undefined.

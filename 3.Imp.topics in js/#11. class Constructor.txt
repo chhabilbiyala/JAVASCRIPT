@@ -120,6 +120,39 @@ class Person {
 
 const person = new Person("Alice");
 person.sayHello();
-----------------------
+----------------------------------------------------------------------------------------------------------------------------
+STEPS IN CREATING A CONSTRUCTOR:- 
+1) Constructor Function Definition: First, you define a constructor function. This function acts as a blueprint for creating objects. It usually contains properties and methods that will be shared by all instances created from it.
+
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+-------------------
+2) Creating Instances: Once you have the constructor function defined, you can create instances using the new keyword. This involves calling the constructor function like a regular function, but with the new keyword in front of it. This creates a new object and sets up its properties based on the constructor's logic.
+
+const person1 = new Person('Alice', 25);
+const person2 = new Person('Bob', 30);
+
+In this example, person1 and person2 are instances of the Person constructor. Each instance gets its own set of properties (name and age), specific to the values you provide when creating them.
+-------------------
+3) Instance Initialization: When you use the new keyword, the constructor function is executed with the this keyword referring to the newly created object. Inside the constructor, you can set initial properties and behaviors for that object.
+
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.sayHello = function() {
+        console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+    };
+}
+--------------------
+4) Instance Usage: Once instances are created, you can use their properties and methods just like you would with any other object.
+
+console.log(person1.name); // Output: Alice
+console.log(person2.age);  // Output: 30
+
+person1.sayHello(); // Output: Hello, my name is Alice and I am 25 years old.
+person2.sayHello(); // Output: Hello, my name is Bob and I am 30 years old.
+-----------------------------------------------------------------------------------------------------------------
 
 
