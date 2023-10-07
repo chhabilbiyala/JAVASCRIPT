@@ -49,3 +49,28 @@ while (endDate < startDate + 10000){
 
 console.log("while expires");
 ----------------------------------------------------------------------------
+It is also possibble to achieve the same function as setInterval with a recursive setTimeout.
+
+1) Recursive setTimeout
+
+setTimeout(function, run() {
+  console.log("Hello")
+  setTimeout(run, 100)
+}, 100) 
+
+Duration is guaranteed between executions.
+Irrespective of how long the code takes to run, the interval will remain the same.Code can take longer to run the time interval itself?
+---------------------------------------
+2) setInterval: 
+
+setInterval(function run() {
+  console.log("Hello")
+}, 100)
+
+1. The duration interval includes the time taken to execute the code you want to run
+The code takes 40ms to run, the interval is 60ms The code takes 50ms to run, the interval is 50ms
+2. You can calculate a different delay before running each iteration
+
+
+
+

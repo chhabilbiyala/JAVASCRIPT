@@ -48,6 +48,7 @@ myPromise
 ---------------------------------
 Async/Await:
 The async/await syntax builds on top of Promises and provides a more concise and synchronous-like way to work with asynchronous code. It uses the async keyword to define an asynchronous function and the await keyword to pause execution until a Promise is resolved:
+*IMP:- await keyword can be put infront of any async promise based function to pause your code until that promise settles and returns its result.
 
 async function myAsyncFunction() {
   try {
@@ -202,5 +203,42 @@ async function handlePromise() {
 handlePromise();
 
 But now in this case first of all p1 will be printed after 5sec and after p1, p2 will be printed after 10 sec. i.2 total = 15 sec.
+------------------------------------------------------------------
+In the context of async/await in JavaScript, the terms "sequential," "concurrent," and "parallel" refer to different ways of executing asynchronous operations.
+1) Sequential Execution: In sequential execution, asynchronous operations are executed one after the other in a sequential manner. Each operation waits for the previous one to complete before starting. This is similar to synchronous code flow.
+async/await makes it easy to express sequential asynchronous logic in a more readable and synchronous-looking manner.
 
+async function sequentialExample() {
+    const result1 = await asyncOperation1();
+    const result2 = await asyncOperation2(result1);
+    const result3 = await asyncOperation3(result2);
+    return result3;
+}
+------------------------
+2) Concurrent Execution: Concurrent execution involves starting multiple asynchronous operations at the same time but not necessarily waiting for each one to complete before moving on. The operations may overlap in time, but they are initiated concurrently.
+Promise.all is often used for concurrent execution, allowing you to wait for all promises to fulfill before proceeding.
 
+async function concurrentExample() {
+    const [result1, result2, result3] = await Promise.all([
+        asyncOperation1(),
+        asyncOperation2(),
+        asyncOperation3()
+    ]);
+    return [result1, result2, result3];
+}
+-------------------------
+3) Parallel Execution: Parallel execution involves the simultaneous execution of multiple asynchronous operations, truly in parallel. Each operation runs independently and concurrently.
+Achieving true parallelism in JavaScript typically requires external tools or environments (like Web Workers) due to the single-threaded nature of the main JavaScript execution.
+
+async function parallelExample() {
+    const promise1 = asyncOperation1();
+    const promise2 = asyncOperation2();
+    const promise3 = asyncOperation3();
+
+    const result1 = await promise1;
+    const result2 = await promise2;
+    const result3 = await promise3;
+
+    return [result1, result2, result3];
+}
+--------------------------------------------------------------------------------------------------
